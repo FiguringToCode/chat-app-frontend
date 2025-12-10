@@ -18,7 +18,7 @@ const Login = ({ setUser }) => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/auth/login", {
+      const response = await axios.post("https://chat-app-backend-ao7g.onrender.com/auth/login", {
         username: trimmedUsername,
         password: trimmedPassword,
       });
