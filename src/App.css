@@ -38,3 +38,14 @@
 } */
 
 
+.typing-dots span {
+  height: 8px; width: 8px; border-radius: 50%; 
+  background: #ffffff; display: inline-block; 
+  margin: 0 1px; animation: typing 1.4s infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes typing {
+  0%,60%,100% { transform: translateY(0); }
+  30% { transform: translateY(-10px); }
+}

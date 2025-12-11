@@ -3,6 +3,8 @@ import { formatDistanceToNow } from 'date-fns'
 import { TiTick } from "react-icons/ti";
 
 const MessageList = ({ messages, user, typingUsers, currentChat }) => {
+  console.log(typingUsers)
+  console.log(currentChat)
 
   const formatTimestamp = (createdAt) => {
     if (!createdAt) return <TiTick /> 
@@ -51,14 +53,15 @@ const MessageList = ({ messages, user, typingUsers, currentChat }) => {
         );
       })}
 
-      {/* Typing indicator */}
-      {typingUsers?.[currentChat] && (
-        <div className="text-muted small fst-italic p-2 d-flex align-items-center">
-          <div className="spinner-border spinner-border-sm me-1" style={{ width: '1rem', height: '1rem' }}></div>
-          <span>{typingUsers[currentChat]} is typing...</span>
-        </div>
-      )}
-    </div>
+        {/* Typing indicator */}
+        {typingUsers?.[currentChat] && (
+          <div className="text-muted small fst-italic p-2 text-light">
+            <div className="d-flex align-items-center gap-1">
+              <span className="text-light fs-3">{typingUsers[currentChat]} is typing...</span>
+            </div>
+          </div>
+        )}
+      </div>
   );
 };
 

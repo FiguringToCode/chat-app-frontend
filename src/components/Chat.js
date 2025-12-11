@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import MessageList from "./MessageList";
 import InputEmoji from 'react-input-emoji'
-import { formatDistanceToNow } from "date-fns";
+
 
 const socket = io("http://localhost:5001");
 
@@ -49,16 +49,18 @@ export const Chat = ({ user }) => {
     })
 
     socket.on("user_typing", (data) => {
-      if(data.receiver === currentChat){
-        setTypingUsers(prev => ({ ...prev, [data.receiver]: data.username}))
-        // Auto-hide after 3s
-        setTimeout(() => {
-          setTypingUsers(prev => {
-            const newTyping = { ...prev }
-            delete newTyping[data.receiver]
-            return newTyping
-          })
-        }, 3000)
+      if(data.receiver === user.username && data.username === currentChat){
+        setTypingUsers(prev => ({ ...prev, [data.username]: data.username}))
+      }
+    })
+
+    socket.on("user_stop_typing", (data) => {
+      if(data.receiver === user.username && data.sender === currentChat) {
+        setTypingUsers(prev => {
+          const newTyping = { ...prev }
+          delete newTyping[data.sender]
+          return newTyping
+        })
       }
     })
 
@@ -83,6 +85,7 @@ export const Chat = ({ user }) => {
       socket.off("receive_message");
       socket.off("message_sent")
       socket.off("user_typing");
+      socket.off("user_stop_typing");
       socket.off("message_delivered");
       socket.off("message_read");
     };
@@ -142,7 +145,7 @@ export const Chat = ({ user }) => {
 
       const timer = setTimeout(() => {
         socket.emit("stop_typing", { sender: user.username, receiver: currentChat })
-      }, 1500)
+      }, 3500)
       setTypingTimer(timer)
     }
   }
