@@ -5,7 +5,7 @@ import MessageList from "./MessageList";
 import InputEmoji from 'react-input-emoji'
 
 
-const socket = io("http://localhost:5001");
+const socket = io("https://chat-app-backend-ao7g.onrender.com");
 
 export const Chat = ({ user }) => {
   const [users, setUsers] = useState([]);
@@ -22,7 +22,7 @@ export const Chat = ({ user }) => {
     // Fetch all users excluding the current user
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5001/users", {
+        const { data } = await axios.get("https://chat-app-backend-ao7g.onrender.com/users", {
           params: { currentUser: user.username },
         });
         setUsers(data);
@@ -93,7 +93,7 @@ export const Chat = ({ user }) => {
 
   const fetchMessages = async (receiver) => {
     try {
-      const { data } = await axios.get("http://localhost:5001/message", {
+      const { data } = await axios.get("https://chat-app-backend-ao7g.onrender.com/message", {
         params: { sender: user.username, receiver },
       });
       setMessages(data);

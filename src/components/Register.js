@@ -13,7 +13,7 @@ const Register = ({ setUser }) => {
     setRegistrationSuccess(null);
 
     try {
-      const { data } = await axios.post("http://localhost:5001/auth/register", {
+      const { data } = await axios.post("https://chat-app-backend-ao7g.onrender.com/auth/register", {
         username,
         password,
       });
