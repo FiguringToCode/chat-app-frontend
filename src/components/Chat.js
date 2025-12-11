@@ -4,7 +4,6 @@ import axios from "axios";
 import MessageList from "./MessageList";
 import InputEmoji from 'react-input-emoji'
 
-
 const socket = io("https://chat-app-backend-ao7g.onrender.com");
 
 export const Chat = ({ user }) => {
